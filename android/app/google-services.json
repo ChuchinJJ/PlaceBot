@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "638924604665",
+    "project_id": "placebot-633a5",
+    "storage_bucket": "placebot-633a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638924604665:android:d33d5bb92c33a1c4b78e28",
+        "android_client_info": {
+          "package_name": "com.ARMSoft.placebot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638924604665-r1b1qc2mjs9p1qnp5ggv0b12mgsfe8g1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ARMSoft.placebot",
+            "certificate_hash": "0d4edc440f9ca61eb582d72e958adfe543a6b2b9"
+          }
+        },
+        {
+          "client_id": "638924604665-uf857eve3hba5fvr3soeiug618l7b6j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBydR6tW_m14gtH4J5ibPym7HRUVJrwxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638924604665-uf857eve3hba5fvr3soeiug618l7b6j5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
