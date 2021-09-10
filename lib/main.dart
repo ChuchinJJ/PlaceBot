@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
           primaryColor: Colors.deepOrange[600],
-          //accentColor: Colors.white,
         ),
         home: FutureBuilder<User?>(
           future: Provider.of<AuthService>(context).getUser(),
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
                 print("error");
                 return Text(snapshot.error.toString());
               }
-
               return snapshot.hasData ? Tabs() : LoginPage();
             } else {
               return Loading();

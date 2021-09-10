@@ -16,7 +16,6 @@ class PageConfiguracion extends StatelessWidget {
               print("error");
               return Text(snapshot.error.toString());
             }
-
             return Configuracion(snapshot.data);
           } else {
             return Loading();
@@ -41,29 +40,30 @@ class ConfiguracionState extends State<Configuracion> {
         body: Container(
             margin: EdgeInsets.only(top: 10, left: 20, right: 20),
             child: ListView(children: <Widget>[
+              SizedBox(height: 10),
               ListTile(
-                  leading: Icon(
-                    Icons.account_circle,
-                    color: Colors.deepOrange,
-                    size: 70,
+                  leading: CircleAvatar(
+                    radius: 25,
+                    backgroundImage:
+                        NetworkImage("${widget.currentUser!.photoURL}"),
+                    backgroundColor: Colors.transparent,
                   ),
                   title: Container(
-                      margin: EdgeInsets.only(top: 25),
                       child: Text(
-                        "Usuario",
-                        style: TextStyle(
-                          color: Colors.deepOrange,
-                          fontSize: 22,
-                        ),
-                      )),
+                    "${widget.currentUser!.displayName}",
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                      fontSize: 20,
+                    ),
+                  )),
                   subtitle: Container(
-                    margin: EdgeInsets.only(bottom: 30),
                     child: Text("${widget.currentUser!.email}",
                         style:
                             TextStyle(color: Colors.deepOrange, fontSize: 17)),
                   )),
+              SizedBox(height: 10),
               Container(
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
@@ -72,7 +72,6 @@ class ConfiguracionState extends State<Configuracion> {
                 ),
               ),
               Card(
-                //color: Colors.deepOrange,
                 child: ListTile(
                   onTap: () {
                     /*Navigator.push(
@@ -89,7 +88,6 @@ class ConfiguracionState extends State<Configuracion> {
                 ),
               ),
               Card(
-                //color: Colors.deepOrange,
                 child: ListTile(
                   onTap: () {
                     /*Navigator.push(
@@ -106,7 +104,6 @@ class ConfiguracionState extends State<Configuracion> {
                 ),
               ),
               Card(
-                //color: Colors.deepOrange,
                 child: ListTile(
                   onTap: () {
                     /*Navigator.push(
@@ -123,13 +120,13 @@ class ConfiguracionState extends State<Configuracion> {
                 ),
               ),
               Card(
-                //color: Colors.deepOrange,
                 child: ListTile(
                   onTap: () async {
                     try {
-                      await Provider.of<AuthService>(contexto, listen: false)
+                      var result = await Provider.of<AuthService>(contexto,
+                              listen: false)
                           .logout();
-                      print("close");
+                      print(result);
                     } catch (e) {
                       print(e.toString());
                     }
@@ -144,7 +141,7 @@ class ConfiguracionState extends State<Configuracion> {
               ),
               Container(
                 alignment: Alignment.bottomCenter,
-                height: MediaQuery.of(context).size.height - 550,
+                height: MediaQuery.of(context).size.height * 0.30,
                 child: Text("Versión 0.1 ARMSoft",
                     style: TextStyle(color: Colors.deepOrange)),
               )

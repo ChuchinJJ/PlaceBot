@@ -85,8 +85,10 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                                       password: _password);
                               if (result != "login") {
                                 _buildErrorDialog(context, result);
+                              } else {
+                                Navigator.of(context).pop();
                               }
-                              Navigator.of(context).pop();
+                              print(result);
                             } catch (e) {
                               _buildErrorDialog(
                                   context, "Lo sentimos, ha ocurrido un error");
@@ -122,10 +124,16 @@ class NuevaCuentaState extends State<NuevaCuenta> {
       builder: (context) {
         return AlertDialog(
           title: Text('Error'),
-          content: Text(_message),
+          content: Text(
+            _message,
+            style: TextStyle(fontSize: 20),
+          ),
           actions: <Widget>[
             TextButton(
-                child: Text('Ok'),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.deepOrange),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 })

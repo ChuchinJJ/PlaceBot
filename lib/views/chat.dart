@@ -21,7 +21,6 @@ class ChatState extends State<Chats> {
       firstName: "PlaceBot",
       imageUrl:
           "https://firebasestorage.googleapis.com/v0/b/aircloud-6885a.appspot.com/o/logo.png?alt=media&token=7f20ccd2-7af0-4f7e-8502-2929d366d369");
-
   void _addMessage(types.Message message) {
     setState(() {
       _messages.insert(0, message);
