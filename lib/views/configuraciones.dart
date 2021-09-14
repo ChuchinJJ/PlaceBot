@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:placebot/services/auth.dart';
+import 'package:placebot/views/acercaDe.dart';
+import 'package:placebot/views/aviso.dart';
+import 'package:placebot/views/ayuda.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:placebot/widget/loading.dart';
@@ -74,10 +77,10 @@ class ConfiguracionState extends State<Configuracion> {
               Card(
                 child: ListTile(
                   onTap: () {
-                    /*Navigator.push(
+                    Navigator.push(
                       contexto,
-                      MaterialPageRoute(builder: (context) => Configuraciones()),
-                    );*/
+                      MaterialPageRoute(builder: (context) => AcercaDe()),
+                    );
                   },
                   title: Text("Acerca de",
                       style: TextStyle(color: Colors.deepOrange)),
@@ -90,10 +93,10 @@ class ConfiguracionState extends State<Configuracion> {
               Card(
                 child: ListTile(
                   onTap: () {
-                    /*Navigator.push(
+                    Navigator.push(
                       contexto,
-                      MaterialPageRoute(builder: (context) => Configuraciones()),
-                    );*/
+                      MaterialPageRoute(builder: (context) => Ayuda()),
+                    );
                   },
                   title:
                       Text("Ayuda", style: TextStyle(color: Colors.deepOrange)),
@@ -106,10 +109,10 @@ class ConfiguracionState extends State<Configuracion> {
               Card(
                 child: ListTile(
                   onTap: () {
-                    /*Navigator.push(
+                    Navigator.push(
                       contexto,
-                      MaterialPageRoute(builder: (context) => Configuraciones()),
-                    );*/
+                      MaterialPageRoute(builder: (context) => Aviso()),
+                    );
                   },
                   title: Text("Aviso de privacidad",
                       style: TextStyle(color: Colors.deepOrange)),
