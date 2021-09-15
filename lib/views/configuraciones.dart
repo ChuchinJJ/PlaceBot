@@ -42,7 +42,7 @@ class ConfiguracionState extends State<Configuracion> {
     return Scaffold(
         body: Container(
             margin: EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: ListView(children: <Widget>[
+            child: Column(children: <Widget>[
               SizedBox(height: 10),
               ListTile(
                   leading: CircleAvatar(
@@ -142,9 +142,10 @@ class ConfiguracionState extends State<Configuracion> {
                   ),
                 ),
               ),
+              Expanded(child: Text("")),
               Container(
                 alignment: Alignment.bottomCenter,
-                height: MediaQuery.of(context).size.height * 0.30,
+                padding: EdgeInsets.only(bottom: 10),
                 child: Text("Versión 0.1 ARMSoft",
                     style: TextStyle(color: Colors.deepOrange)),
               )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:placebot/views/aviso.dart';
 import 'package:provider/provider.dart';
 import '/services/auth.dart';
 
@@ -109,7 +110,12 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () => {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Aviso()),
+                          );
+                        },
                         child: Text("Politicas de privacidad",
                             style: TextStyle(
                                 fontSize: 20,

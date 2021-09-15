@@ -88,33 +88,35 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text("¿Olvidaste tu contraseña?",
                         style: TextStyle(fontSize: 16))),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
+                    Expanded(
+                        child: Container(
                       margin: EdgeInsets.only(bottom: 20, top: 25),
-                      width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
                                 width: 2.0, color: Colors.deepOrangeAccent)),
                         shape: BoxShape.rectangle,
                       ),
-                    ),
+                    )),
                     Container(
                       margin: EdgeInsets.only(left: 5, right: 5),
                       child: Text("o",
                           style: TextStyle(
                               color: Colors.deepOrange, fontSize: 18)),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20, top: 25),
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 2.0, color: Colors.deepOrangeAccent)),
-                        shape: BoxShape.rectangle,
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20, top: 25),
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  width: 2.0, color: Colors.deepOrangeAccent)),
+                          shape: BoxShape.rectangle,
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(height: 20.0),

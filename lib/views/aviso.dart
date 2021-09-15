@@ -2,44 +2,47 @@ import 'package:flutter/material.dart';
 
 class Aviso extends StatefulWidget {
   @override
+  AvisoState createState() => AvisoState();
+}
+
+class AvisoState extends State<Aviso> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Aviso de privacidad', style: TextStyle(fontSize: 25)),
         centerTitle: true,
+        toolbarHeight: 80,
       ),
-      backgroundColor: Colors.tealAccent,
-      body: Container(
-          margin: new EdgeInsets.only(top: 20.0, left: 20.0),
-          alignment: Alignment.center,
-          child: Row(children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    "Politica de privacidad de PlaceBot",
-                    style: const TextStyle(fontSize: 20, color: Colors.black),
-                    textAlign: TextAlign.center,
-                  ),
-                  margin: new EdgeInsets.only(bottom: 20.0, top: 20.0),
+      body: ListView(children: <Widget>[
+        Container(
+            margin: new EdgeInsets.all(30),
+            child: Column(children: <Widget>[
+              Container(
+                child: Text(
+                  "Politica de privacidad de PlaceBot",
+                  style: TextStyle(fontSize: 26, color: Colors.deepOrange),
+                  textAlign: TextAlign.justify,
                 ),
-                Container(
-                  child: Text(
-                    "Fecha que entra en efecto:/n 29 de Septiembre de 2021/n Esta politica de privacidad gobierna el\n uso de la aplicacion de software\n PlaceBot para dispositivos moviles\n que fue creada por ARMSoft\n es una aplicacion que permite conversar\n con un chatbot para proporcionar informacion\n sobre destinos, rutas en un mapa.\n Esta ploitica de seguridad\n describe como PlaceBot recopila\n utiliza y comunica sus datos personales\n atraves del servicio, y que opciones\n tiene con respectoa dichos datos...mas.",
-                    style: const TextStyle(fontSize: 20, color: Colors.black),
-                    textAlign: TextAlign.center,
-                  ),
-                  margin: new EdgeInsets.only(bottom: 20.0, top: 20.0),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                child: Text(
+                  "Fecha que entra en efecto: 29 de septiembre de 2021",
+                  style: TextStyle(fontSize: 17, color: Colors.deepOrange),
+                  textAlign: TextAlign.justify,
                 ),
-              ],
-            )
-          ])),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                child: Text(
+                  "Esta política de seguridad gobierna el uso de la aplicación de software PlaceBot para dispositivos móviles que fue creada por ARMSoft, es una aplicación que permitie conversar con un chatbot para proporcionar información sobre destinos, rutas en un mapa",
+                  style: TextStyle(fontSize: 20, color: Colors.deepOrange),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+            ]))
+      ]),
     );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
