@@ -11,6 +11,7 @@ class RessetPass extends StatefulWidget {
 class RessetPassState extends State<RessetPass> {
   final _formKey = GlobalKey<FormState>();
   late String _email;
+  bool cargando = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +43,16 @@ class RessetPassState extends State<RessetPass> {
                     TextFormField(
                         onSaved: (value) => _email = value!,
                         keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          String pattern =
+                              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                          RegExp regExp = new RegExp(pattern);
+                          if (value!.isEmpty) {
+                            return 'El campo no puede estar vacío';
+                          } else if (!regExp.hasMatch(value)) {
+                            return "Correo no valido";
+                          }
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email),
                           labelText: "Correo eléctronico",
@@ -63,6 +74,9 @@ class RessetPassState extends State<RessetPass> {
                           form!.save();
                           if (form.validate()) {
                             try {
+                              setState(() {
+                                cargando = true;
+                              });
                               var result = await Provider.of<AuthService>(
                                       context,
                                       listen: false)
@@ -77,6 +91,9 @@ class RessetPassState extends State<RessetPass> {
                             } catch (e) {
                               print(e.toString());
                             }
+                            setState(() {
+                              cargando = false;
+                            });
                           }
                         },
                       ),
@@ -89,11 +106,12 @@ class RessetPassState extends State<RessetPass> {
     return showDialog(
       builder: (context) {
         return AlertDialog(
-          title: Text('Advertencia'),
+          title: Text('Advertencia',
+              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
           content: Text(_message),
           actions: <Widget>[
             TextButton(
-                child: Text('Ok'),
+                child: Text('Ok', style: TextStyle(color: Colors.deepOrange)),
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => MyApp()),
@@ -107,14 +125,26 @@ class RessetPassState extends State<RessetPass> {
   }
 
   Future _buildErrorDialog(BuildContext context, _message) {
+    String mensaje = _message;
+    if (_message == "user-not-found") {
+      mensaje = "Usuario no encontrado";
+    }
+
     return showDialog(
       builder: (context) {
         return AlertDialog(
-          title: Text('Error'),
-          content: Text(_message),
+          title: Text('Error',
+              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
+          content: Text(
+            mensaje,
+            style: TextStyle(fontSize: 20),
+          ),
           actions: <Widget>[
             TextButton(
-                child: Text('Ok'),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.deepOrange),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 })

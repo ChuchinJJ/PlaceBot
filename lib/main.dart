@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.error != null) {
                 print("error");
+                Provider.of<AuthService>(context, listen: false).notifY();
                 return Text(snapshot.error.toString());
               }
               return snapshot.hasData ? Tabs() : LoginPage();

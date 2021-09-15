@@ -13,6 +13,8 @@ class NuevaCuentaState extends State<NuevaCuenta> {
   late String _password;
   late String _user;
   late String _email;
+
+  bool cargando = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +37,16 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     TextFormField(
                         onSaved: (value) => _email = value!,
                         keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          String pattern =
+                              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                          RegExp regExp = new RegExp(pattern);
+                          if (value!.isEmpty) {
+                            return 'El campo no puede estar vacío';
+                          } else if (!regExp.hasMatch(value)) {
+                            return "Correo no valido";
+                          }
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email),
                           labelText: "Correo eléctronico",
@@ -45,6 +57,11 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     SizedBox(height: 20.0),
                     TextFormField(
                         onSaved: (value) => _user = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'El campo no puede estar vacío';
+                          }
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.person),
                           labelText: "Usuario",
@@ -55,6 +72,24 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     SizedBox(height: 20.0),
                     TextFormField(
                         onSaved: (value) => _password = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'El campo no puede estar vacío';
+                          } else {
+                            bool minuscula = value.contains(RegExp(r'[a-z]'));
+                            bool mayuscula = value.contains(RegExp(r'[A-Z]'));
+                            bool numero = value.contains(RegExp(r'[0-9]'));
+                            if (value.length <= 8) {
+                              return "La contraseña debe contener al menos 8 carácteres";
+                            } else if (!minuscula) {
+                              return "La contraseña debe contener al menos una minúscula";
+                            } else if (!mayuscula) {
+                              return "La contraseña debe contener al menos una mayúscula";
+                            } else if (!numero) {
+                              return "La contraseña debe contener al menos un número";
+                            }
+                          }
+                        },
                         obscureText: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.vpn_key),
@@ -77,6 +112,9 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                           form!.save();
                           if (form.validate()) {
                             try {
+                              setState(() {
+                                cargando = true;
+                              });
                               var result = await Provider.of<AuthService>(
                                       context,
                                       listen: false)
@@ -94,6 +132,9 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                               _buildErrorDialog(
                                   context, "Lo sentimos, ha ocurrido un error");
                             }
+                            setState(() {
+                              cargando = false;
+                            });
                           }
                         },
                       ),
@@ -126,12 +167,21 @@ class NuevaCuentaState extends State<NuevaCuenta> {
   }
 
   Future _buildErrorDialog(BuildContext context, _message) {
+    String mensaje = _message;
+    if (_message == "user-not-found") {
+      mensaje = "Usuario no encontrado";
+    } else if (_message == "wrong-password") {
+      mensaje = "La contraseña es incorrecta";
+    } else if (_message == "email-already-in-use") {
+      mensaje = "El correo ya está en uso";
+    }
     return showDialog(
       builder: (context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: Text('Error',
+              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
           content: Text(
-            _message,
+            mensaje,
             style: TextStyle(fontSize: 20),
           ),
           actions: <Widget>[

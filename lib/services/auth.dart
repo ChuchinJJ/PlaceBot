@@ -9,14 +9,18 @@ class AuthService with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<User?> getUser() async {
-    if (auth.currentUser != null) {
-      auth.currentUser!.reload();
-    }
+    try {
+      await auth.currentUser!.reload();
+    } catch (e) {}
     return auth.currentUser;
   }
 
+  Future notifY() async {
+    notifyListeners();
+  }
+
   Future logout() async {
-    var result = FirebaseAuth.instance.signOut();
+    var result = auth.signOut();
     notifyListeners();
     return result;
   }
