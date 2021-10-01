@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:placebot/services/database.dart';
 
 class AuthService with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -38,7 +38,7 @@ class AuthService with ChangeNotifier {
       usuario.user!.reload();
       auth.currentUser!.reload();
       notifyListeners();
-      addUser(usuario.user!.uid, name, email);
+      DatabaseMethods.addUser(usuario.user!.uid, name, email);
       return "login";
     } on FirebaseAuthException catch (e) {
       return e.code;
@@ -77,7 +77,7 @@ class AuthService with ChangeNotifier {
 
       var usuario =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      searchUser(
+      DatabaseMethods.searchUser(
           usuario.user!.uid, usuario.user!.displayName, usuario.user!.email);
       notifyListeners();
       return "login";
@@ -101,36 +101,5 @@ class AuthService with ChangeNotifier {
       print(e.toString());
       return e.toString();
     }
-  }
-
-  addUser(uid, nombre, email) async {
-    FirebaseFirestore.instance.collection("usuarios").doc(uid).set({
-      'nombre': nombre,
-      'email': email,
-    }).catchError((e) {
-      print(e.toString());
-    });
-
-    FirebaseFirestore.instance.collection("chats").add({
-      "usuario": uid,
-      "mensajes": [
-        {
-          "texto":
-              "Hola yo soy PlaceBot, un bot que te ayudará a trazar rutas y buscar lugares",
-          "fecha": DateTime.now().toString(),
-          "bot": true
-        }
-      ]
-    });
-  }
-
-  searchUser(uid, nombre, email) async {
-    FirebaseFirestore.instance
-        .collection('usuarios')
-        .doc(uid)
-        .get()
-        .catchError((e) {
-      addUser(uid, nombre, email);
-    });
   }
 }

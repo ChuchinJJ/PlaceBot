@@ -41,7 +41,7 @@ class _TabState extends State<Tabs> with SingleTickerProviderStateMixin {
           centerTitle: true,
         ),
         body: TabBarView(controller: _tabController, children: [
-          Chats(),
+          PageChat(),
           Mapa(),
           PageConfiguracion(),
         ]));
