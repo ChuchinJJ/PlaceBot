@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:placebot/models/BotMessage.dart';
+import 'package:placebot/models/Intencion.dart';
 import 'package:placebot/services/auth.dart';
 import 'package:placebot/services/database.dart';
 import 'package:placebot/services/wit.dart';
@@ -13,10 +15,10 @@ import 'package:provider/provider.dart';
 
 class PageChat extends StatelessWidget {
   @override
-  Widget build(BuildContext contexto) {
+  Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder<User?>(
-        future: Provider.of<AuthService>(contexto).getUser(),
+        future: Provider.of<AuthService>(context).getUser(),
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.error != null) {
@@ -54,15 +56,11 @@ class ChatState extends State<Chats> {
         imageUrl:
             "https://firebasestorage.googleapis.com/v0/b/aircloud-6885a.appspot.com/o/logo.png?alt=media&token=7f20ccd2-7af0-4f7e-8502-2929d366d369");
 
-    void _handleSendPressedBot(String message) {
-      final textMessage = types.TextMessage(
-        author: _bot,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: randomString(),
-        text: message,
-      );
+    void _handleSendPressedBot(String message, Intencion intencion) {
+      final textMessage = BotMessage(_bot, DateTime.now(), randomString(),
+          message, intencion.tipo, intencion.parametros);
 
-      DatabaseMethods.addMessage(chatId, message, true);
+      DatabaseMethods.addMessageBot(chatId, message, true, intencion);
       _addMessage(textMessage);
     }
 
@@ -75,8 +73,15 @@ class ChatState extends State<Chats> {
       );
       DatabaseMethods.addMessage(chatId, message.text, false);
       _addMessage(textMessage);
-      WitMethods.respuestaWit(message.text)
-          .then((value) => _handleSendPressedBot(value));
+      WitMethods.respuestaWit(message.text, _handleSendPressedBot, context);
+    }
+
+    void _messageTap(message) {
+      Intencion intencion = WitMethods.fabrica(
+          message.tipoIntencion, message.parametrosIntencion, context);
+      if (intencion.mostrar) {
+        intencion.mostrarVista(context);
+      }
     }
 
     return StreamBuilder<QuerySnapshot>(
@@ -92,20 +97,27 @@ class ChatState extends State<Chats> {
         } else if (_messages.length == 0) {
           for (var mensajes in snapshot.data!.docs.last["mensajes"]) {
             if (mensajes["bot"]) {
+              List<Map> parametros = [];
+
+              for (var entidad in mensajes["intencion"]["parametros"]) {
+                parametros.add(entidad);
+              }
               _messages.insert(
                 0,
-                types.TextMessage(
-                    author: _bot,
-                    createdAt: DateTime.now().millisecondsSinceEpoch,
-                    id: randomString(),
-                    text: mensajes["texto"].toString()),
+                BotMessage(
+                    _bot,
+                    DateTime(mensajes["fecha"].millisecondsSinceEpoch),
+                    randomString(),
+                    mensajes["texto"].toString(),
+                    mensajes["intencion"]["tipo"],
+                    parametros),
               );
             } else {
               _messages.insert(
                 0,
                 types.TextMessage(
                     author: _user,
-                    createdAt: DateTime.now().millisecondsSinceEpoch,
+                    createdAt: mensajes["fecha"].millisecondsSinceEpoch,
                     id: randomString(),
                     text: mensajes["texto"].toString()),
               );
@@ -123,6 +135,7 @@ class ChatState extends State<Chats> {
                 inputPlaceholder: "Escribe un mensaje",
                 emptyChatPlaceholder: "No hay ningun mensaje"),
             showUserAvatars: true,
+            onMessageTap: _messageTap,
             customDateHeaderText: (a) => "",
             theme: DefaultChatTheme(
               inputBackgroundColor: Colors.deepOrange,

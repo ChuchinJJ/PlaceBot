@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:placebot/models/Intencion.dart';
 
 class DatabaseMethods {
   static addUser(uid, nombre, email) async {
@@ -39,6 +40,24 @@ class DatabaseMethods {
     FirebaseFirestore.instance.collection("chats").doc(chatId).update({
       "mensajes": FieldValue.arrayUnion([
         {"texto": message, "bot": bot, "fecha": DateTime.now()}
+      ]),
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  static addMessageBot(
+      String chatId, String message, bool bot, Intencion intencion) {
+    String tipo = intencion.tipo;
+    var parametros = intencion.parametros;
+    FirebaseFirestore.instance.collection("chats").doc(chatId).update({
+      "mensajes": FieldValue.arrayUnion([
+        {
+          "texto": message,
+          "bot": bot,
+          "fecha": DateTime.now(),
+          "intencion": {"tipo": tipo, "parametros": parametros}
+        }
       ]),
     }).catchError((e) {
       print(e.toString());
