@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:placebot/views/nuevaCuenta.dart';
 import 'package:placebot/views/ressetPass.dart';
 import 'package:placebot/widget/loading.dart';
+import 'package:placebot/widget/AlertDialog.dart';
 import 'package:provider/provider.dart';
 import '/services/auth.dart';
 
@@ -91,10 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                                 .loginWithEmail(
                                     email: _email, password: _password);
                             if (result != "login") {
-                              _buildErrorDialog(context, result);
+                              buildErrorDialog(context, result);
                             }
                           } catch (e) {
-                            _buildErrorDialog(
+                            buildErrorDialog(
                                 context, "Lo sentimos, ha ocurrido un error");
                           }
                           setState(() {
@@ -169,10 +170,10 @@ class _LoginPageState extends State<LoginPage> {
                                   listen: false)
                               .loginWithGoogle();
                           if (result != "login") {
-                            _buildErrorDialog(context, result);
+                            buildErrorDialog(context, result);
                           }
                         } catch (e) {
-                          _buildErrorDialog(
+                          buildErrorDialog(
                               context, "Lo sentimos, ha ocurrido un error");
                         }
                         setState(() {
@@ -201,37 +202,5 @@ class _LoginPageState extends State<LoginPage> {
                 ])))
       ]));
     }
-  }
-
-  Future _buildErrorDialog(BuildContext context, _message) {
-    String mensaje = _message;
-    if (_message == "user-not-found") {
-      mensaje = "Usuario no encontrado";
-    } else if (_message == "wrong-password") {
-      mensaje = "La contraseña es incorrecta";
-    }
-    return showDialog(
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Error',
-              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
-          content: Text(
-            mensaje,
-            style: TextStyle(fontSize: 20),
-          ),
-          actions: <Widget>[
-            TextButton(
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.deepOrange),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                })
-          ],
-        );
-      },
-      context: context,
-    );
   }
 }

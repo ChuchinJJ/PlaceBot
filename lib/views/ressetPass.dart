@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:placebot/main.dart';
+import 'package:placebot/widget/AlertDialog.dart';
 import 'package:provider/provider.dart';
 import '/services/auth.dart';
 
@@ -30,16 +30,15 @@ class RessetPassState extends State<RessetPass> {
                       height: 200,
                       child: Image.asset("assets/logoTitulo.png"),
                     ),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 60.0),
                     Container(
                       child: Text(
-                        "Ingrese su correo registrado para enviar un enlace de restablecimiento de contraseña",
-                        style:
-                            TextStyle(color: Colors.deepOrange, fontSize: 20),
+                        "Ingrese su correo registrado para enviar un enlace de restablecer contraseña",
+                        style: TextStyle(color: Colors.black54, fontSize: 20),
                         textAlign: TextAlign.justify,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 40.0),
                     TextFormField(
                         onSaved: (value) => _email = value!,
                         keyboardType: TextInputType.emailAddress,
@@ -82,9 +81,9 @@ class RessetPassState extends State<RessetPass> {
                                       listen: false)
                                   .resetPass(_email);
                               if (result != "send") {
-                                _buildErrorDialog(context, result);
+                                buildErrorDialog(context, result);
                               } else {
-                                _buildAdvertenciaDialog(context,
+                                buildAdvertenciaDialog(context,
                                     "El email fue enviado, por favor verifique su correo");
                               }
                               print(result);
@@ -100,58 +99,5 @@ class RessetPassState extends State<RessetPass> {
                     ),
                   ])))
         ]));
-  }
-
-  Future _buildAdvertenciaDialog(BuildContext context, _message) {
-    return showDialog(
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Advertencia',
-              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
-          content: Text(_message),
-          actions: <Widget>[
-            TextButton(
-                child: Text('Ok', style: TextStyle(color: Colors.deepOrange)),
-                onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => MyApp()),
-                      (route) => false);
-                })
-          ],
-        );
-      },
-      context: context,
-    );
-  }
-
-  Future _buildErrorDialog(BuildContext context, _message) {
-    String mensaje = _message;
-    if (_message == "user-not-found") {
-      mensaje = "Usuario no encontrado";
-    }
-
-    return showDialog(
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Error',
-              style: TextStyle(fontSize: 25, color: Colors.deepOrange)),
-          content: Text(
-            mensaje,
-            style: TextStyle(fontSize: 20),
-          ),
-          actions: <Widget>[
-            TextButton(
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.deepOrange),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                })
-          ],
-        );
-      },
-      context: context,
-    );
   }
 }
