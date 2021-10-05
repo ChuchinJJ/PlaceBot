@@ -1,42 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:placebot/models/user.dart';
 import 'package:placebot/services/auth.dart';
 import 'package:placebot/views/acercaDe.dart';
 import 'package:placebot/views/aviso.dart';
 import 'package:placebot/views/ayuda.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:placebot/widget/loading.dart';
-
-class PageConfiguracion extends StatelessWidget {
-  @override
-  Widget build(BuildContext contexto) {
-    return Container(
-      child: FutureBuilder<User?>(
-        future: Provider.of<AuthService>(contexto).getUser(),
-        builder: (context, AsyncSnapshot<User?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.error != null) {
-              print("error");
-              return Text(snapshot.error.toString());
-            }
-            return Configuracion(snapshot.data);
-          } else {
-            return Loading();
-          }
-        },
-      ),
-    );
-  }
-}
 
 class Configuracion extends StatefulWidget {
-  final User? currentUser;
-  Configuracion(this.currentUser);
   @override
   ConfiguracionState createState() => ConfiguracionState();
 }
 
 class ConfiguracionState extends State<Configuracion> {
+  String? nombre = Usuario.getNombre();
+  String? email = Usuario.getCorreo();
+  String? imagen = Usuario.getUrlImagen();
+
   @override
   Widget build(BuildContext contexto) {
     return Scaffold(
@@ -47,20 +26,19 @@ class ConfiguracionState extends State<Configuracion> {
               ListTile(
                   leading: CircleAvatar(
                     radius: 25,
-                    backgroundImage:
-                        NetworkImage("${widget.currentUser!.photoURL}"),
+                    backgroundImage: NetworkImage(imagen.toString()),
                     backgroundColor: Colors.transparent,
                   ),
                   title: Container(
                       child: Text(
-                    "${widget.currentUser!.displayName}",
+                    nombre.toString(),
                     style: TextStyle(
                       color: Colors.deepOrange,
                       fontSize: 20,
                     ),
                   )),
                   subtitle: Container(
-                    child: Text("${widget.currentUser!.email}",
+                    child: Text(email.toString(),
                         style:
                             TextStyle(color: Colors.deepOrange, fontSize: 17)),
                   )),

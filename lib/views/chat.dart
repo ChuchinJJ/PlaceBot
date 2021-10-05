@@ -1,42 +1,17 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:placebot/models/BotMessage.dart';
 import 'package:placebot/models/Intencion.dart';
-import 'package:placebot/services/auth.dart';
+import 'package:placebot/models/user.dart';
 import 'package:placebot/services/database.dart';
 import 'package:placebot/services/wit.dart';
 import 'package:placebot/widget/loading.dart';
-import 'package:provider/provider.dart';
-
-class PageChat extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder<User?>(
-        future: Provider.of<AuthService>(context).getUser(),
-        builder: (context, AsyncSnapshot<User?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.error != null) {
-              print("error");
-              return Text(snapshot.error.toString());
-            }
-            return Chats(snapshot.data);
-          }
-          return Loading();
-        },
-      ),
-    );
-  }
-}
 
 class Chats extends StatefulWidget {
-  final User? currentUser;
-  Chats(this.currentUser);
   @override
   ChatState createState() => ChatState();
 }
@@ -44,12 +19,13 @@ class Chats extends StatefulWidget {
 class ChatState extends State<Chats> {
   late String chatId;
   List<types.Message> _messages = [];
+  String? nombreUsuario = Usuario.getNombre();
+  String? uidUsuario = Usuario.getUid();
 
   @override
   Widget build(BuildContext context) {
-    final _user = types.User(
-        id: "${widget.currentUser!.uid}",
-        firstName: "${widget.currentUser!.displayName}");
+    final _user =
+        types.User(id: uidUsuario.toString(), firstName: nombreUsuario);
     final _bot = types.User(
         id: 'placebot',
         firstName: "PlaceBot",
@@ -87,7 +63,7 @@ class ChatState extends State<Chats> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection("chats")
-          .where("usuario", isEqualTo: "${widget.currentUser!.uid}")
+          .where("usuario", isEqualTo: uidUsuario)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {

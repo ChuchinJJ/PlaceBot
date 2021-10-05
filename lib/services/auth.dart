@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:placebot/models/user.dart';
 import 'package:placebot/services/database.dart';
 
 class AuthService with ChangeNotifier {
@@ -12,6 +13,13 @@ class AuthService with ChangeNotifier {
     try {
       await auth.currentUser!.reload();
     } catch (e) {}
+
+    auth.authStateChanges().listen((User? user) {
+      if (user != null) {
+        Usuario.costruct(user);
+      }
+    });
+
     return auth.currentUser;
   }
 

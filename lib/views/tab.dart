@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:placebot/views/chat.dart';
-import 'package:placebot/views/configuraciones.dart';
+import 'package:placebot/views/configuracion.dart';
 import 'package:placebot/views/mapa.dart';
 
 class Tabs extends StatefulWidget {
@@ -41,9 +41,9 @@ class _TabState extends State<Tabs> with SingleTickerProviderStateMixin {
           centerTitle: true,
         ),
         body: TabBarView(controller: _tabController, children: [
-          PageChat(),
+          Chats(),
           Mapa(),
-          PageConfiguracion(),
+          Configuracion(),
         ]));
   }
 }
