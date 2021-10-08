@@ -16,7 +16,7 @@ class AuthService with ChangeNotifier {
 
     auth.authStateChanges().listen((User? user) {
       if (user != null) {
-        Usuario.costruct(user);
+        Usuario(user);
       }
     });
 
@@ -41,8 +41,7 @@ class AuthService with ChangeNotifier {
       var usuario = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       usuario.user!.updateDisplayName(name);
-      usuario.user!.updatePhotoURL(
-          "https://firebasestorage.googleapis.com/v0/b/aircloud-6885a.appspot.com/o/logo.png?alt=media&token=7f20ccd2-7af0-4f7e-8502-2929d366d369");
+      usuario.user!.updatePhotoURL("");
       usuario.user!.reload();
       auth.currentUser!.reload();
       notifyListeners();

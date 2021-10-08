@@ -1,31 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Usuario {
-  static late String uid;
-  static late String? nombre;
-  static late String? correo;
-  static late String? urlImagen;
+  User? user;
 
-  static costruct(User user) {
-    uid = user.uid;
-    nombre = user.displayName;
-    correo = user.email;
-    urlImagen = user.photoURL;
+  static final Usuario _usuario = Usuario._internal();
+
+  Usuario._internal();
+
+  factory Usuario(User user) {
+    _usuario.user = user;
+    return _usuario;
   }
 
   static String getUid() {
-    return uid;
+    return _usuario.user!.uid;
   }
 
   static String? getNombre() {
-    return nombre;
+    return _usuario.user!.displayName;
   }
 
   static String? getCorreo() {
-    return correo;
+    return _usuario.user!.email;
   }
 
   static String? getUrlImagen() {
-    return urlImagen;
+    return _usuario.user!.photoURL;
   }
 }

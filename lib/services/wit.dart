@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_witai/flutter_witai.dart';
 import 'package:placebot/models/DetalleLugar.dart';
+import 'package:placebot/models/FotosLugar.dart';
 import 'package:placebot/models/Intencion.dart';
 import 'package:placebot/models/Lugar.dart';
 import 'package:placebot/models/LugaresCercanos.dart';
@@ -49,14 +50,16 @@ class WitMethods {
   static Intencion fabrica(
       String tipoIntencion, List<Map> parametros, BuildContext context) {
     Intencion intencion;
-    if (tipoIntencion == "ruta") {
+    if (tipoIntencion == "Ruta") {
       intencion = Ruta();
-    } else if (tipoIntencion == "place") {
+    } else if (tipoIntencion == "Lugar") {
       intencion = Lugar();
     } else if (tipoIntencion == "LugaresCercanos") {
       intencion = LugaresCercanos();
-    } else if (tipoIntencion == "DetalleLugar") {
+    } else if (tipoIntencion == "Detalle") {
       intencion = DetalleLugar();
+    } else if (tipoIntencion == "Fotos") {
+      intencion = FotosLugar();
     } else {
       intencion = Traits();
     }

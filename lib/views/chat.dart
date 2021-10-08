@@ -53,11 +53,13 @@ class ChatState extends State<Chats> {
     }
 
     void _messageTap(message) {
-      Intencion intencion = WitMethods.fabrica(
-          message.tipoIntencion, message.parametrosIntencion, context);
-      if (intencion.mostrar) {
-        intencion.mostrarVista(context);
-      }
+      try {
+        Intencion intencion = WitMethods.fabrica(
+            message.tipoIntencion, message.parametrosIntencion, context);
+        if (intencion.mostrar) {
+          intencion.mostrarVista(context);
+        }
+      } catch (e) {}
     }
 
     return StreamBuilder<QuerySnapshot>(

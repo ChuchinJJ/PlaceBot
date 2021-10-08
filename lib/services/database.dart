@@ -15,9 +15,24 @@ class DatabaseMethods {
       "mensajes": [
         {
           "texto":
-              "Hola yo soy PlaceBot, un bot que te ayudará a trazar rutas y buscar lugares",
+              "Hola yo soy Dasha, una asistente que te ayudará a trazar rutas y buscar lugares, entre otras cosas",
           "fecha": DateTime.now(),
-          "bot": true
+          "bot": true,
+          "intencion": {"tipo": "Saludo", "parametros": []}
+        },
+        {
+          "texto":
+              "Puedes pedirme que busque un lugar por ti, solo pideme que lugar quieres buscar",
+          "fecha": DateTime.now(),
+          "bot": true,
+          "intencion": {"tipo": "Saludo", "parametros": []}
+        },
+        {
+          "texto":
+              "Si no sabes que hacer pideme ayuda, simplemente escribe: Dasha ayudame, y yo con gusto te atenderé",
+          "fecha": DateTime.now(),
+          "bot": true,
+          "intencion": {"tipo": "Saludo", "parametros": []}
         }
       ]
     });

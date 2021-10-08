@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:placebot/models/Intencion.dart';
 
-class Lugar extends Intencion {
+class FotosLugar extends Intencion {
   @override
   llamarAPI() {
-    respuesta = parametros.first.values.first + " encontrado";
+    respuesta = "Fotos de " + parametros.first.values.first + " mostradas";
     mostrar = true;
+
     return parametros;
   }
 
@@ -14,7 +15,7 @@ class Lugar extends Intencion {
     var h = llamarAPI();
 
     return ListView(
-      children: [Text("Lugar encontrado"), Text(h.toString())],
+      children: [Text("Fotos de lugar"), Text(h.toString())],
     );
   }
 }

@@ -33,7 +33,7 @@ class RessetPassState extends State<RessetPass> {
                     SizedBox(height: 60.0),
                     Container(
                       child: Text(
-                        "Ingrese su correo registrado para enviar un enlace de restablecer contraseña",
+                        "Ingrese su correo registrado para enviar un enlace para restablecer contraseña",
                         style: TextStyle(color: Colors.black54, fontSize: 20),
                         textAlign: TextAlign.justify,
                       ),

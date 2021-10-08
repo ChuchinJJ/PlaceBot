@@ -15,20 +15,35 @@ class ConfiguracionState extends State<Configuracion> {
   String? nombre = Usuario.getNombre();
   String? email = Usuario.getCorreo();
   String? imagen = Usuario.getUrlImagen();
+  late Widget ima;
 
   @override
   Widget build(BuildContext contexto) {
+    if (imagen == null) {
+      ima = Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.deepOrange,
+          ),
+          child: Icon(
+            Icons.person,
+            color: Colors.white,
+            size: 55,
+          ));
+    } else {
+      ima = CircleAvatar(
+        radius: 25,
+        backgroundImage: NetworkImage(imagen.toString()),
+        backgroundColor: Colors.transparent,
+      );
+    }
     return Scaffold(
         body: Container(
             margin: EdgeInsets.only(top: 10, left: 20, right: 20),
             child: Column(children: <Widget>[
               SizedBox(height: 10),
               ListTile(
-                  leading: CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(imagen.toString()),
-                    backgroundColor: Colors.transparent,
-                  ),
+                  leading: ima,
                   title: Container(
                       child: Text(
                     nombre.toString(),

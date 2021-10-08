@@ -144,7 +144,7 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     ])))
           ]),
           Positioned(
-              bottom: 1,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
