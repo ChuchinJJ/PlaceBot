@@ -16,7 +16,7 @@ class RessetPassState extends State<RessetPass> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Restablecer contraseña', style: TextStyle(fontSize: 25)),
+          title: Text('Restablecer contraseña', style: TextStyle(fontSize: 22)),
           centerTitle: true,
           toolbarHeight: 80,
         ),
@@ -34,7 +34,10 @@ class RessetPassState extends State<RessetPass> {
                     Container(
                       child: Text(
                         "Ingrese su correo registrado para enviar un enlace para restablecer contraseña",
-                        style: TextStyle(color: Colors.black54, fontSize: 20),
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 20,
+                        ),
                         textAlign: TextAlign.justify,
                       ),
                     ),

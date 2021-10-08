@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:placebot/services/auth.dart';
 import 'package:placebot/views/login.dart';
-import 'package:placebot/views/tab.dart';
+import 'package:placebot/views/menu.dart';
 import 'package:placebot/widget/loading.dart';
 import 'package:provider/provider.dart';
 
@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'PlaceBot',
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          primaryColor: Colors.deepOrange[600],
-        ),
+            primarySwatch: Colors.deepOrange,
+            primaryColor: Colors.deepOrange[600],
+            fontFamily: 'Poppins'),
         home: FutureBuilder<User?>(
           future: Provider.of<AuthService>(context).getUser(),
           builder: (context, AsyncSnapshot<User?> snapshot) {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                 Provider.of<AuthService>(context, listen: false).notifY();
                 return Text(snapshot.error.toString());
               }
-              return snapshot.hasData ? Tabs() : LoginPage();
+              return snapshot.hasData ? Menu() : LoginPage();
             } else {
               return Loading();
             }
