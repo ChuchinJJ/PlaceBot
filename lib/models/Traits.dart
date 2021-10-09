@@ -14,12 +14,9 @@ class Traits extends Intencion {
       respuesta = gracias[random.nextInt(gracias.length)];
     } else if (tipo == "Despedida") {
       var random = new Random();
-      respuesta = gracias[random.nextInt(gracias.length)];
-    } else if (tipo == "Ayuda"){
-
-    }else{
-      
-    }
+      respuesta = despedida[random.nextInt(despedida.length)];
+    } else if (tipo == "Ayuda") {
+    } else {}
 
     mostrar = false;
   }
@@ -36,10 +33,8 @@ List<String> saludo = [
   "¿En que puedo ayudarte?",
   "Hola, ¿Comó está tu día?",
   "Hola " + Usuario.getNombre().toString(),
-  "Hola, ¿En qué te puedo servir?"
-          "Hola " +
-      Usuario.getNombre().toString() +
-      ", ¿Cómo te puedo ayudar?",
+  "Hola, ¿En qué te puedo servir?",
+  "Hola " + Usuario.getNombre().toString() + ", ¿Cómo te puedo ayudar?",
   "Hola, ¿Qué puedo hacer por ti",
   "Hola, siempre es un gusto volverte a ver",
   "Holi"

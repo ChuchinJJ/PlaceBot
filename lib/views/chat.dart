@@ -106,21 +106,24 @@ class ChatState extends State<Chats> {
 
         return Scaffold(
           body: Chat(
-            messages: _messages,
-            onSendPressed: _handleSendPressed,
-            user: _user,
-            l10n: ChatL10nEs(
-                inputPlaceholder: "Escribe un mensaje",
-                emptyChatPlaceholder: "No hay ningun mensaje"),
-            showUserAvatars: true,
-            onMessageTap: _messageTap,
-            customDateHeaderText: (a) => "",
-            theme: DefaultChatTheme(
-              inputBackgroundColor: Colors.deepOrange,
-              primaryColor: Colors.blue,
-              sendButtonIcon: Icon(Icons.send, color: Colors.white),
-            ),
-          ),
+              messages: _messages,
+              onSendPressed: _handleSendPressed,
+              user: _user,
+              l10n: ChatL10nEs(
+                  inputPlaceholder: "Escribe un mensaje",
+                  emptyChatPlaceholder: "No hay ningun mensaje"),
+              showUserAvatars: true,
+              onMessageTap: _messageTap,
+              customDateHeaderText: (a) => "",
+              theme: DefaultChatTheme(
+                  inputBackgroundColor: Colors.deepOrange,
+                  primaryColor: Colors.blue,
+                  sendButtonIcon: Icon(Icons.send, color: Colors.white),
+                  inputTextStyle: TextStyle(fontFamily: "Poppins"),
+                  sentMessageBodyTextStyle:
+                      TextStyle(fontFamily: "Poppins", color: Colors.white),
+                  receivedMessageBodyTextStyle:
+                      TextStyle(fontFamily: "Poppins"))),
         );
       },
     );

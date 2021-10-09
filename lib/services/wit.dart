@@ -56,7 +56,7 @@ class WitMethods {
       intencion = Lugar();
     } else if (tipoIntencion == "LugaresCercanos") {
       intencion = LugaresCercanos();
-    } else if (tipoIntencion == "Detalle") {
+    } else if (tipoIntencion == "Detalles") {
       intencion = DetalleLugar();
     } else if (tipoIntencion == "Fotos") {
       intencion = FotosLugar();
