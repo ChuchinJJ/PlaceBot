@@ -4,7 +4,7 @@
         android:label="placebot"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyCqA-vdjT2YOAs-7yeH_kcL1LBi7TTmnJg"/>
+               android:value="AIzaSyBh6-q7wJ8FWjMt-mTSgxGSEHwwPFYBK1Y"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -40,4 +40,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

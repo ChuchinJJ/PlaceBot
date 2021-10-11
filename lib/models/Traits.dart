@@ -16,6 +16,7 @@ class Traits extends Intencion {
       var random = new Random();
       respuesta = despedida[random.nextInt(despedida.length)];
     } else if (tipo == "Ayuda") {
+      respuesta = "Ayuda dada";
     } else {}
 
     mostrar = false;

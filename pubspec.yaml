@@ -38,6 +38,8 @@ dependencies:
   flutter_witai: ^0.0.1
   flutter_chat_ui: ^1.1.9
   google_maps_flutter: ^2.0.5
+  geolocator: ^7.7.0
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:

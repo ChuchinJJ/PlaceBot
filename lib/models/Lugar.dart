@@ -4,7 +4,8 @@ import 'package:placebot/models/Intencion.dart';
 class Lugar extends Intencion {
   @override
   llamarAPI() {
-    respuesta = parametros.first.values.first + " encontrado";
+    String lugar = parametros[0]["Lugar"];
+    respuesta = lugar + " encontrado";
     mostrar = true;
     return parametros;
   }
