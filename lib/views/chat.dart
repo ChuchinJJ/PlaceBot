@@ -21,9 +21,16 @@ class ChatState extends State<Chats> {
   List<types.Message> _messages = [];
   String? nombreUsuario = Usuario.getNombre();
   String? uidUsuario = Usuario.getUid();
+  bool cargando = false;
 
   @override
   Widget build(BuildContext context) {
+    setCargando(bool valor) {
+      setState(() {
+        cargando = valor;
+      });
+    }
+
     final _user =
         types.User(id: uidUsuario.toString(), firstName: nombreUsuario);
     final _bot = types.User(
@@ -49,18 +56,25 @@ class ChatState extends State<Chats> {
       );
       DatabaseMethods.addMessage(chatId, message.text, false);
       _addMessage(textMessage);
-      WitMethods.respuestaWit(message.text, _handleSendPressedBot, context);
+      WitMethods.respuestaWit(
+          message.text, _handleSendPressedBot, setCargando, context);
     }
 
     void _messageTap(message) {
       try {
-        Intencion intencion = WitMethods.fabrica(
-            message.tipoIntencion, message.parametrosIntencion, context);
-        if (intencion.mostrar) {
-          intencion.mostrarVista(context);
-        }
+        setCargando(true);
+        WitMethods.fabrica(
+                message.tipoIntencion, message.parametrosIntencion, context)
+            .then((value) {
+          if (value.mostrar) {
+            value.mostrarVista(context);
+          }
+          setCargando(false);
+        });
       } catch (e) {}
     }
+
+    if (cargando) return Loading();
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
@@ -84,7 +98,8 @@ class ChatState extends State<Chats> {
                 0,
                 BotMessage(
                     _bot,
-                    DateTime(mensajes["fecha"].millisecondsSinceEpoch),
+                    DateTime.fromMicrosecondsSinceEpoch(
+                        mensajes["fecha"].microsecondsSinceEpoch),
                     randomString(),
                     mensajes["texto"].toString(),
                     mensajes["intencion"]["tipo"],

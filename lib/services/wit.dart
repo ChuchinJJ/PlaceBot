@@ -10,7 +10,9 @@ import 'package:placebot/models/Ruta.dart';
 import 'package:placebot/models/Traits.dart';
 
 class WitMethods {
-  static respuestaWit(String texto, enviarMensaje, BuildContext context) async {
+  static respuestaWit(
+      String texto, enviarMensaje, setCargando, BuildContext context) async {
+    setCargando(true);
     final wit = WitManager(
         utterance: texto,
         headers: "D4TTIQVLQQV4YYZPSJ77HKLYT2XHRENK",
@@ -37,18 +39,19 @@ class WitMethods {
         parametros.add({entidad[0]["name"]: entidad[0]["value"]});
       }
 
-      //factory method
-      Intencion intencion = fabrica(intentName, parametros, context);
-      enviarMensaje(intencion.respuesta, intencion);
-      if (intencion.mostrar) {
-        intencion.mostrarVista(context);
-      }
+      await fabrica(intentName, parametros, context).then((value) {
+        enviarMensaje(value.respuesta, value);
+        if (value.mostrar) {
+          value.mostrarVista(context);
+        }
+      });
     }
+    setCargando(false);
   }
 
   //factory method
-  static Intencion fabrica(
-      String tipoIntencion, List<Map> parametros, BuildContext context) {
+  static Future<Intencion> fabrica(
+      String tipoIntencion, List<Map> parametros, BuildContext context) async {
     Intencion intencion;
     if (tipoIntencion == "Ruta") {
       intencion = Ruta();
@@ -64,7 +67,7 @@ class WitMethods {
       intencion = Traits();
     }
     intencion.construct(tipoIntencion, parametros);
-    intencion.llamarAPI();
+    await intencion.llamarAPI();
     return intencion;
   }
 }
