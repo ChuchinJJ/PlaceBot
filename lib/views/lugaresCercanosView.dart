@@ -14,6 +14,8 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
   final List<JsonLugar> datos;
   LugaresCercanosViewState(this.datos);
   late GoogleMapController mapController;
+  late BitmapDescriptor pinPlaceBot;
+  Set<Marker> markers = {};
 
   getPosicion() async {
     await determinePosition().then((position) {
@@ -30,10 +32,16 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
     });
   }
 
+  void setCustomMapPin() async {
+    pinPlaceBot = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/pinPlaceBot.png');
+  }
+
   @override
   void initState() {
     super.initState();
     getPosicion();
+    setCustomMapPin();
   }
 
   @override
@@ -41,25 +49,22 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
     final LatLng _center = LatLng(0, 0);
     void _onMapCreated(GoogleMapController controller) {
       mapController = controller;
-    }
-
-    Set<Marker> markers = {};
-
-    for (var lugar in datos) {
-      markers.add(Marker(
-        markerId: MarkerId(lugar.id),
-        position: LatLng(
-          lugar.lat,
-          lugar.long,
-        ),
-        infoWindow: InfoWindow(
-            title: lugar.lugar,
-            // ignore: unnecessary_null_comparison
-            snippet: lugar.rating != null
-                ? "Calificación: " + lugar.rating.toString()
-                : ""),
-        icon: BitmapDescriptor.defaultMarkerWithHue(15),
-      ));
+      for (var lugar in datos) {
+        markers.add(Marker(
+          markerId: MarkerId(lugar.id),
+          position: LatLng(
+            lugar.lat,
+            lugar.long,
+          ),
+          infoWindow: InfoWindow(
+              title: lugar.lugar,
+              // ignore: unnecessary_null_comparison
+              snippet: lugar.rating != null
+                  ? "Calificación: " + lugar.rating.toString()
+                  : ""),
+          icon: pinPlaceBot,
+        ));
+      }
     }
 
     return GoogleMap(

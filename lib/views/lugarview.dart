@@ -13,30 +13,42 @@ class LugarViewState extends State<LugarView> {
   final JsonLugar datos;
   LugarViewState(this.datos);
   late GoogleMapController mapController;
+  late BitmapDescriptor pinPlaceBot;
+  Set<Marker> markers = {};
+
+  void setCustomMapPin() async {
+    pinPlaceBot = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/pinPlaceBot.png');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setCustomMapPin();
+  }
 
   @override
   Widget build(BuildContext context) {
     final LatLng _center = LatLng(datos.lat, datos.long);
     void _onMapCreated(GoogleMapController controller) {
       mapController = controller;
+      setState(() {
+        markers.add(Marker(
+          markerId: MarkerId(datos.id),
+          position: LatLng(
+            datos.lat,
+            datos.long,
+          ),
+          infoWindow: InfoWindow(
+              title: datos.lugar,
+              // ignore: unnecessary_null_comparison
+              snippet: datos.rating != null
+                  ? "Calificación: " + datos.rating.toString()
+                  : ""),
+          icon: pinPlaceBot,
+        ));
+      });
     }
-
-    Set<Marker> markers = {
-      Marker(
-        markerId: MarkerId(datos.id),
-        position: LatLng(
-          datos.lat,
-          datos.long,
-        ),
-        infoWindow: InfoWindow(
-            title: datos.lugar,
-            // ignore: unnecessary_null_comparison
-            snippet: datos.rating != null
-                ? "Calificación: " + datos.rating.toString()
-                : ""),
-        icon: BitmapDescriptor.defaultMarkerWithHue(15),
-      )
-    };
 
     return GoogleMap(
       onMapCreated: _onMapCreated,

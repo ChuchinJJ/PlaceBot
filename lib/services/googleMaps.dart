@@ -1,7 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:placebot/services/geolocator.dart';
 
 String key = "AIzaSyBh6-q7wJ8FWjMt-mTSgxGSEHwwPFYBK1Y";
@@ -16,6 +15,31 @@ buscarLugar(String ubicacion) async {
   if (response.statusCode == 200) {
     if (jsonDecode(response.body)["status"] == "OK") {
       var valor = jsonDecode(response.body)["candidates"][0];
+      return valor;
+    }
+    return "Sin_resultados";
+  } else {
+    return "Sin_resultados";
+  }
+}
+
+trazarRuta(String origen, String destino) async {
+  if (origen == "") {
+    Position posicion = await determinePosition();
+    origen = posicion.latitude.toString() + "," + posicion.longitude.toString();
+  }
+  final response = await http.get(Uri.parse(
+      'https://maps.googleapis.com/maps/api/directions/json?origin=' +
+          origen +
+          '&destination=' +
+          destino +
+          '&key=' +
+          key +
+          '&mode=driving'));
+  if (response.statusCode == 200) {
+    Map<String, dynamic> respuestaJson = jsonDecode(response.body);
+    if (respuestaJson["status"] == "OK") {
+      var valor = respuestaJson["routes"][0];
       return valor;
     }
     return "Sin_resultados";
