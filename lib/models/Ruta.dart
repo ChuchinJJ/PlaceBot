@@ -11,7 +11,7 @@ class Ruta extends Intencion {
     try {
       if (parametros.length == 1) {
         String destino = parametros[0]["Destino"];
-        await trazarRuta("", destino).then((valor) {
+        await trazarRuta("", destino, "driving").then((valor) {
           if (valor == "Sin_resultados") {
             mostrar = false;
             respuesta = "Lo sentimos, no se encontraron coincidencias";
@@ -24,7 +24,7 @@ class Ruta extends Intencion {
       } else {
         String origen = parametros[1]["Origen"];
         String destino = parametros[0]["Destino"];
-        await trazarRuta(origen, destino).then((valor) {
+        await trazarRuta(origen, destino, "driving").then((valor) {
           if (valor == "Sin_resultados") {
             mostrar = false;
             respuesta = "Lo sentimos, no se encontraron coincidencias";

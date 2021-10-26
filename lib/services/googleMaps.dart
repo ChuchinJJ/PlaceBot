@@ -23,7 +23,7 @@ buscarLugar(String ubicacion) async {
   }
 }
 
-trazarRuta(String origen, String destino) async {
+trazarRuta(String origen, String destino, String modo) async {
   if (origen == "") {
     Position posicion = await determinePosition();
     origen = posicion.latitude.toString() + "," + posicion.longitude.toString();
@@ -35,7 +35,9 @@ trazarRuta(String origen, String destino) async {
           destino +
           '&key=' +
           key +
-          '&mode=driving'));
+          '&mode=' +
+          modo +
+          "&language=es"));
   if (response.statusCode == 200) {
     Map<String, dynamic> respuestaJson = jsonDecode(response.body);
     if (respuestaJson["status"] == "OK") {

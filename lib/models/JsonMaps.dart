@@ -57,7 +57,6 @@ class JsonRuta {
   final String duracion;
   final Map noreste;
   final Map suroeste;
-  final String modo;
 
   JsonRuta(
       {required this.origen,
@@ -69,8 +68,7 @@ class JsonRuta {
       required this.distancia,
       required this.duracion,
       required this.noreste,
-      required this.suroeste,
-      required this.modo});
+      required this.suroeste});
 
   factory JsonRuta.fromJson(Map<String, dynamic> json) {
     return JsonRuta(
@@ -83,7 +81,6 @@ class JsonRuta {
         distancia: json["legs"][0]["distance"]["text"],
         duracion: json["legs"][0]["duration"]["text"],
         noreste: json["bounds"]["northeast"],
-        suroeste: json["bounds"]["southwest"],
-        modo: "driving");
+        suroeste: json["bounds"]["southwest"]);
   }
 }
