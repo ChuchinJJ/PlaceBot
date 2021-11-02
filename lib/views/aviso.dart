@@ -39,7 +39,7 @@ class AvisoState extends State<Aviso> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Politica de privacidad de PlaceBot",
+                        "Política de privacidad de PlaceBot",
                         style: TextStyle(
                           fontSize: 26,
                           color: Colors.deepOrange,

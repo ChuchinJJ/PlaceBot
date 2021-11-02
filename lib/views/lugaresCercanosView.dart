@@ -43,7 +43,7 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
     MapType mapa;
     if (tipo == "Terreno") {
       mapa = MapType.terrain;
-    } else if (tipo == "Satelite") {
+    } else if (tipo == "Satélite") {
       mapa = MapType.satellite;
     } else {
       mapa = MapType.normal;
@@ -117,7 +117,7 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                 cambiarMapa(newValue);
               });
             },
-            items: <String>['Normal', 'Satelite', 'Terreno']
+            items: <String>['Normal', 'Satélite', 'Terreno']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

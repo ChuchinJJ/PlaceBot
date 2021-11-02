@@ -18,7 +18,6 @@ class Traits extends Intencion {
     } else if (tipo == "Ayuda") {
       respuesta = "Ayuda dada";
     } else {}
-
     mostrar = false;
   }
 
@@ -30,15 +29,15 @@ class Traits extends Intencion {
 
 List<String> saludo = [
   "Hola",
-  "Hola, ¿Comó puedo ayudarte?",
-  "¿En que puedo ayudarte?",
-  "Hola, ¿Comó está tu día?",
+  "Hola, ¿Cómo puedo ayudarte?",
+  "¿En qué puedo ayudarte?",
+  "Hola, ¿Cómo está tu día?",
   "Hola " + Usuario.getNombre().toString(),
   "Hola, ¿En qué te puedo servir?",
   "Hola " + Usuario.getNombre().toString() + ", ¿Cómo te puedo ayudar?",
-  "Hola, ¿Qué puedo hacer por ti",
+  "Hola, ¿Qué puedo hacer por ti?",
   "Hola, siempre es un gusto volverte a ver",
-  "Holi"
+  "Hola " + Usuario.getNombre().toString() + ", ¿Qué quieres que hagamos?"
 ];
 
 List<String> gracias = [
@@ -47,9 +46,9 @@ List<String> gracias = [
   "A ti",
   "Es un placer poder ayudarte",
   "Estoy para ayudarte",
-  "Cualquier otra cosa que desees puedes pedirmelo",
+  "Cualquier otra cosa que desees puedes pedírmelo",
   "Es un placer",
-  "Para eso estoy"
+  "Estoy cuando me necesites"
 ];
 
 List<String> despedida = [
@@ -58,6 +57,8 @@ List<String> despedida = [
   "Que te valla muy bien",
   "Hasta luego",
   "Cuídate",
+  "Te voy a extrañar",
+  "Vuelve pronto",
   "Adiós",
   "Hasta pronto",
   "Que tengas un excelente día"

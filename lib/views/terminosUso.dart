@@ -267,7 +267,7 @@ class TerminosState extends State<Terminos> {
                               fontFamily: 'Poppins-Light'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'Politicas de privacidad',
+                              text: 'Políticas de privacidad',
                               style: TextStyle(color: Colors.deepOrange),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {

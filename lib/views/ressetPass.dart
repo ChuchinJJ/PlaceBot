@@ -57,9 +57,9 @@ class RessetPassState extends State<RessetPass> {
                         },
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email),
-                          labelText: "Correo eléctronico",
+                          labelText: "Correo electrónico",
                           labelStyle: TextStyle(fontSize: 18),
-                          hintText: 'Ingrese su correo eléctronico',
+                          hintText: 'Ingrese su correo electrónico',
                           border: OutlineInputBorder(),
                         )),
                     SizedBox(height: 30.0),

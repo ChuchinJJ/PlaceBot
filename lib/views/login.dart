@@ -49,9 +49,9 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email),
-                        labelText: "Correo eléctronico",
+                        labelText: "Correo electrónico",
                         labelStyle: TextStyle(fontSize: 18),
-                        hintText: 'Ingrese su correo eléctronico',
+                        hintText: 'Ingrese su correo electrónico',
                         border: OutlineInputBorder(),
                       )),
                   SizedBox(height: 20.0),

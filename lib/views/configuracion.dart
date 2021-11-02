@@ -115,7 +115,7 @@ class ConfiguracionState extends State<Configuracion> {
                   MaterialPageRoute(builder: (context) => Terminos()),
                 );
               },
-              title: Text("Terminos de uso",
+              title: Text("Términos de uso",
                   style:
                       TextStyle(color: Colors.deepOrangeAccent, fontSize: 16)),
               leading: Icon(

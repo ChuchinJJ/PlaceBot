@@ -38,7 +38,7 @@ class Ruta extends Intencion {
     } catch (e) {
       print(e);
       mostrar = false;
-      respuesta = "Lo sentimos ocurrio un error, intenta de otra forma";
+      respuesta = "Lo sentimos ocurrió un error, intenta de otra forma";
     }
   }
 

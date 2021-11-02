@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:placebot/views/aviso.dart';
+import 'package:placebot/views/terminosUso.dart';
 import 'package:placebot/widget/AlertDialog.dart';
 import 'package:provider/provider.dart';
 import '/services/auth.dart';
@@ -51,9 +53,9 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email),
-                        labelText: "Correo eléctronico",
+                        labelText: "Correo electrónico",
                         labelStyle: TextStyle(fontSize: 18),
-                        hintText: 'Ingrese su correo eléctronico',
+                        hintText: 'Ingrese su correo electrónico',
                         border: OutlineInputBorder(),
                       )),
                   SizedBox(height: 20.0),
@@ -141,32 +143,44 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     ),
                   ),
                 ]))),
-        Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 12),
-            Container(
-              child: Text(
-                "Al registrarse estas aceptando las",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.deepOrange,
+        SizedBox(height: MediaQuery.of(context).size.height / 16),
+        Container(
+          padding: EdgeInsets.all(40),
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: 'Al registrarse estas aceptando las ',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black54,
+                  fontFamily: 'Poppins-Light'),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Políticas de privacidad',
+                  style: TextStyle(color: Colors.deepOrange),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Aviso()),
+                      );
+                    },
                 ),
-              ),
+                TextSpan(text: " y los "),
+                TextSpan(
+                  text: 'Términos de uso',
+                  style: TextStyle(color: Colors.deepOrange),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Terminos()),
+                      );
+                    },
+                ),
+              ],
             ),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Aviso()),
-                  );
-                },
-                child: Text("Politicas de privacidad",
-                    style: TextStyle(
-                        fontSize: 20,
-                        decoration: TextDecoration.underline,
-                        height: 0.001))),
-          ],
+          ),
         )
       ]),
     );

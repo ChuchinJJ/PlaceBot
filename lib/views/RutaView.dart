@@ -62,7 +62,7 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
     MapType mapa;
     if (tipo == "Terreno") {
       mapa = MapType.terrain;
-    } else if (tipo == "Satelite") {
+    } else if (tipo == "Satélite") {
       mapa = MapType.satellite;
     } else {
       mapa = MapType.normal;
@@ -251,7 +251,7 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
                         cambiarMapa(newValue);
                       });
                     },
-                    items: <String>['Normal', 'Satelite', 'Terreno']
+                    items: <String>['Normal', 'Satélite', 'Terreno']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
