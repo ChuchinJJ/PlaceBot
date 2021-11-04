@@ -5,7 +5,7 @@ import 'package:placebot/services/googleMaps.dart';
 import 'package:placebot/views/RutaView.dart';
 
 class Ruta extends Intencion {
-  static late JsonRuta datos;
+  late JsonRuta datos;
   @override
   llamarAPI() async {
     try {

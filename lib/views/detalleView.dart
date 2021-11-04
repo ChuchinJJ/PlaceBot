@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:placebot/models/JsonMaps.dart';
+import 'package:placebot/services/googleMaps.dart';
+import 'package:placebot/views/ImagePage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class DetalleView extends StatefulWidget {
   final JsonDetalle datos;
@@ -160,10 +163,39 @@ class DetalleViewState extends State<DetalleView> {
                   ),
                 ],
               ),
-              if (datos.comentarios != [])
-                Divider(
-                  color: Colors.deepOrange,
-                ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                color: Colors.deepOrange,
+              ),
+              CarouselSlider(
+                options: CarouselOptions(height: 250),
+                items: datos.fotos.map((i) {
+                  return Builder(builder: (BuildContext context) {
+                    return GestureDetector(
+                      child: Container(
+                        margin: EdgeInsets.all(6.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          image: DecorationImage(
+                            image:
+                                NetworkImage(fotosLugar(i["photo_reference"])),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ImagenPage(i["photo_reference"])),
+                        );
+                      },
+                    );
+                  });
+                }).toList(),
+              ),
               if (datos.comentarios != [])
                 Container(
                   padding: EdgeInsets.only(top: 30),

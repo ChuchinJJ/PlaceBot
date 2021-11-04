@@ -6,7 +6,7 @@ import 'package:placebot/views/lugaresCercanosView.dart';
 
 class LugaresCercanos extends Intencion {
   late String busqueda;
-  static late List<JsonLugar> datos = [];
+  late List<JsonLugar> datos = [];
 
   @override
   llamarAPI() async {

@@ -6,7 +6,7 @@ import 'package:placebot/views/lugarview.dart';
 
 class Lugar extends Intencion {
   late String lugar;
-  static late JsonLugar datos;
+  late JsonLugar datos;
 
   @override
   llamarAPI() async {

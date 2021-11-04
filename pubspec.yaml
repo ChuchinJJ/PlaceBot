@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.3
   url_launcher: ^6.0.10
   flutter_rating_bar: ^4.0.0
+  carousel_slider: ^4.0.0
   test: ^1.17.0
 
 dev_dependencies:
