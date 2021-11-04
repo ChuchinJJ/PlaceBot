@@ -84,3 +84,61 @@ class JsonRuta {
         suroeste: json["bounds"]["southwest"]);
   }
 }
+
+class JsonDetalle {
+  final String id;
+  final String nombre;
+  final String direccion;
+  final String telefono;
+  final List<dynamic> fotos;
+  final double rating;
+  final String status;
+  final List<dynamic> types;
+  final List<dynamic> comentarios;
+  final bool abierto;
+  final List<dynamic> horarios;
+  final String web;
+  final int votos;
+
+  JsonDetalle(
+      {required this.id,
+      required this.nombre,
+      required this.direccion,
+      required this.telefono,
+      required this.fotos,
+      required this.rating,
+      required this.status,
+      required this.types,
+      required this.comentarios,
+      required this.abierto,
+      required this.horarios,
+      required this.web,
+      required this.votos});
+
+  factory JsonDetalle.fromJson(Map<String, dynamic> json) {
+    return JsonDetalle(
+        id: json["place_id"] != null ? json["place_id"] : "",
+        nombre: json["name"] != null ? json["name"] : "",
+        direccion: json["vicinity"] != null
+            ? json["vicinity"]
+            : json["formatted_address"],
+        telefono: json["formatted_phone_number"] != null
+            ? json["formatted_phone_number"]
+            : "",
+        fotos: json["photos"] != null ? json["photos"] : [],
+        rating: json["rating"] != null ? json["rating"].toDouble() : null,
+        status: json["business_status"] != null ? json["business_status"] : "",
+        types: json["types"] != null ? json["types"] : [],
+        comentarios: json["reviews"] != null ? json["reviews"] : [],
+        abierto: json["opening_hours"] != null
+            ? json["opening_hours"]["open_now"]
+            : null,
+        horarios: json["opening_hours"] != null
+            ? json["opening_hours"]["weekday_text"]
+            : [],
+        web: json["website"] != null ? json["website"] : "",
+        votos: json["user_ratings_total"] != null
+            ? json["user_ratings_total"]
+            : null);
+  }
+}

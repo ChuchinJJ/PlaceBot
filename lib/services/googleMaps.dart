@@ -93,3 +93,22 @@ buscarLugaresTexto(String busqueda) async {
     return "Sin_resultados";
   }
 }
+
+detalleLugar(String placeId) async {
+  final response = await http.get(Uri.parse(
+      'https://maps.googleapis.com/maps/api/place/details/json?place_id=' +
+          placeId +
+          '&key=' +
+          key +
+          '&fields=place_id,business_status,formatted_address,name,photo,type,formatted_phone_number,rating,opening_hours,website,price_level,review,vicinity,user_ratings_total' +
+          '&language=es'));
+  if (response.statusCode == 200) {
+    if (jsonDecode(response.body)["status"] == "OK") {
+      var valor = jsonDecode(response.body)["result"];
+      return valor;
+    }
+    return "Sin_resultados";
+  } else {
+    return "Sin_resultados";
+  }
+}
