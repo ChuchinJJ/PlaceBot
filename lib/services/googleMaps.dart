@@ -112,3 +112,10 @@ detalleLugar(String placeId) async {
     return "Sin_resultados";
   }
 }
+
+fotosLugar(String referencia) {
+  return 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
+      referencia +
+      '&key=' +
+      key;
+}
