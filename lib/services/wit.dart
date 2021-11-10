@@ -8,6 +8,7 @@ import 'package:placebot/models/Lugar.dart';
 import 'package:placebot/models/LugaresCercanos.dart';
 import 'package:placebot/models/Ruta.dart';
 import 'package:placebot/models/Traits.dart';
+import 'package:placebot/models/Uber.dart';
 
 class WitMethods {
   static respuestaWit(
@@ -63,6 +64,8 @@ class WitMethods {
       intencion = DetalleLugar();
     } else if (tipoIntencion == "Fotos") {
       intencion = FotosLugar();
+    } else if (tipoIntencion == "Uber") {
+      intencion = Uber();
     } else {
       intencion = Traits();
     }
