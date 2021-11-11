@@ -1,5 +1,8 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:placebot/models/JsonMaps.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'geolocator.dart';
 
 linkUberRuta(JsonRuta ruta, String lugar) {
   launch(
@@ -17,4 +20,22 @@ linkUberRuta(JsonRuta ruta, String lugar) {
           lugar +
           "&dropoff[formatted_address]=" +
           ruta.destino);
+}
+
+linkUberLugar(JsonLugar lugar) async {
+  Position posicion = await determinePosition();
+  launch(
+      "https://m.uber.com/ul/?client_id=vUBl1jUXoyXMl6crwUJazUmr5-ZfpISF&action=setPickup&pickup[latitude]=" +
+          posicion.latitude.toString() +
+          "&pickup[longitude]=" +
+          posicion.longitude.toString() +
+          "&pickup[nickname]=Mi%20ubicación" +
+          "&dropoff[latitude]=" +
+          lugar.lat.toString() +
+          "&dropoff[longitude]=" +
+          lugar.long.toString() +
+          "&dropoff[nickname]=" +
+          lugar.lugar +
+          "&dropoff[formatted_address]=" +
+          lugar.direccion);
 }

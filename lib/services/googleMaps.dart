@@ -11,7 +11,7 @@ buscarLugar(String ubicacion) async {
           ubicacion +
           '&inputtype=textquery&key=' +
           key +
-          '&fields=formatted_address,geometry,name,photo,place_id,type,business_status,opening_hours,user_ratings_total'));
+          '&fields=formatted_address,geometry,name,photo,place_id,type,rating,business_status,opening_hours,user_ratings_total'));
   if (response.statusCode == 200) {
     if (jsonDecode(response.body)["status"] == "OK") {
       var valor = jsonDecode(response.body)["candidates"][0];

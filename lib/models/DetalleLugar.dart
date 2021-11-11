@@ -12,16 +12,20 @@ class DetalleLugar extends Intencion {
   @override
   llamarAPI() async {
     try {
-      lugar = parametros[0]["Lugar"];
-
-      await buscarLugar(lugar).then((valor) {
-        if (valor == "Sin_resultados") {
-          mostrar = false;
-          respuesta = "Lo sentimos, no se encontraron coincidencias";
-        } else {
-          placeId = valor["place_id"];
-        }
-      });
+      if (parametros[0].keys.first == "Lugar") {
+        lugar = parametros[0]["Lugar"];
+        await buscarLugar(lugar).then((valor) {
+          if (valor == "Sin_resultados") {
+            mostrar = false;
+            respuesta = "Lo sentimos, no se encontraron coincidencias";
+          } else {
+            placeId = valor["place_id"];
+          }
+        });
+      } else {
+        lugar = "";
+        placeId = parametros[0]["Id"];
+      }
 
       await detalleLugar(placeId).then((valor) {
         if (valor == "Sin_resultados") {
