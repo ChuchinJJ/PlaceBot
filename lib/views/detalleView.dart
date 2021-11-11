@@ -48,7 +48,7 @@ class DetalleViewState extends State<DetalleView> {
                     color: Colors.deepOrange,
                   ),
                 ),
-              if (datos.telefono != "")
+              if (datos.direccion != "")
                 Divider(
                   color: Colors.deepOrange,
                 ),
@@ -66,7 +66,7 @@ class DetalleViewState extends State<DetalleView> {
                       color: Colors.deepOrange,
                     ),
                     onTap: () => launch("tel:" + datos.telefono)),
-              if (datos.web != "")
+              if (datos.telefono != "")
                 Divider(
                   color: Colors.deepOrange,
                 ),
@@ -87,8 +87,7 @@ class DetalleViewState extends State<DetalleView> {
                     color: Colors.deepOrange,
                   ),
                 ),
-              // ignore: unnecessary_null_comparison
-              if (datos.abierto != null)
+              if (datos.web != "")
                 Divider(
                   color: Colors.deepOrange,
                 ),
@@ -122,7 +121,7 @@ class DetalleViewState extends State<DetalleView> {
                   ),
                 ),
               // ignore: unnecessary_null_comparison
-              if (datos.rating != null)
+              if (datos.abierto != null)
                 Divider(
                   color: Colors.deepOrange,
                 ),
@@ -142,61 +141,66 @@ class DetalleViewState extends State<DetalleView> {
                     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   ),
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Calificación: " + datos.rating.toString(),
-                    style: TextStyle(
-                        fontFamily: "Poppins-Light",
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    datos.votos.toString() + ' votos',
-                    style: TextStyle(
-                        fontFamily: "Poppins-Light",
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
+              // ignore: unnecessary_null_comparison
+              if (datos.rating != null && datos.votos != null)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Calificación: " + datos.rating.toString(),
+                      style: TextStyle(
+                          fontFamily: "Poppins-Light",
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      datos.votos.toString() + ' votos',
+                      style: TextStyle(
+                          fontFamily: "Poppins-Light",
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
               SizedBox(
                 height: 20,
               ),
-              Divider(
-                color: Colors.deepOrange,
-              ),
-              CarouselSlider(
-                options: CarouselOptions(height: 250),
-                items: datos.fotos.map((i) {
-                  return Builder(builder: (BuildContext context) {
-                    return GestureDetector(
-                      child: Container(
-                        margin: EdgeInsets.all(6.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          image: DecorationImage(
-                            image:
-                                NetworkImage(fotosLugar(i["photo_reference"])),
-                            fit: BoxFit.cover,
+              // ignore: unnecessary_null_comparison
+              if (datos.rating != null)
+                Divider(
+                  color: Colors.deepOrange,
+                ),
+              if (datos.fotos.length != 0)
+                CarouselSlider(
+                  options: CarouselOptions(height: 250),
+                  items: datos.fotos.map((i) {
+                    return Builder(builder: (BuildContext context) {
+                      return GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  fotosLugar(i["photo_reference"])),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ImagenPage(i["photo_reference"])),
-                        );
-                      },
-                    );
-                  });
-                }).toList(),
-              ),
-              if (datos.comentarios != [])
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ImagenPage(i["photo_reference"])),
+                          );
+                        },
+                      );
+                    });
+                  }).toList(),
+                ),
+              if (datos.comentarios.length != 0)
                 Container(
                   padding: EdgeInsets.only(top: 30),
                   alignment: Alignment.topLeft,
@@ -209,7 +213,7 @@ class DetalleViewState extends State<DetalleView> {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-              if (datos.comentarios != [])
+              if (datos.comentarios.length != 0)
                 Column(
                   children: datos.comentarios
                       .map((item) => Container(
