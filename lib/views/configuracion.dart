@@ -6,6 +6,7 @@ import 'package:placebot/views/aviso.dart';
 import 'package:placebot/views/ayuda.dart';
 import 'package:placebot/views/terminosUso.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Configuracion extends StatefulWidget {
   @override
@@ -94,6 +95,19 @@ class ConfiguracionState extends State<Configuracion> {
             SizedBox(height: 5.0),
             ListTile(
               onTap: () {
+                launch("mailto:josedejesuscons@gmail.com?subject=PlaceBot");
+              },
+              title: Text("Contacto",
+                  style:
+                      TextStyle(color: Colors.deepOrangeAccent, fontSize: 16)),
+              leading: Icon(
+                Icons.email_outlined,
+                color: Colors.deepOrangeAccent,
+              ),
+            ),
+            SizedBox(height: 5.0),
+            ListTile(
+              onTap: () {
                 Navigator.push(
                   contexto,
                   MaterialPageRoute(builder: (context) => Aviso()),
@@ -151,7 +165,7 @@ class ConfiguracionState extends State<Configuracion> {
               child: Container(
                 padding: EdgeInsets.only(bottom: 15),
                 child: Text(
-                  "Versión 1.1 ARMSoft",
+                  "Versión 1.0 ARMSoft",
                   style: TextStyle(color: Colors.deepOrange),
                   textAlign: TextAlign.center,
                 ),
