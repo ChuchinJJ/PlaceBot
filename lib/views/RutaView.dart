@@ -23,7 +23,7 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
   MapType tipoMapa = MapType.normal;
   TravelMode modoViaje = TravelMode.driving;
   String tipoViaje = "Automóvil";
-  Icon iconoViaje = Icon(Icons.directions_car, color: Colors.white);
+  Icon iconoViaje = Icon(Icons.directions_car, color: Colors.deepOrangeAccent);
   String dropdownValue = 'Normal';
   List<String> options = <String>['Automóvil', 'Caminando', 'Bicicleta'];
 
@@ -81,14 +81,14 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
     if (modo == "Bicicleta") {
       mode = "bicycling";
       modoViaje = TravelMode.bicycling;
-      iconoViaje = Icon(Icons.directions_bike, color: Colors.white);
+      iconoViaje = Icon(Icons.directions_bike, color: Colors.deepOrangeAccent);
     } else if (modo == "Caminando") {
       mode = "walking";
       modoViaje = TravelMode.walking;
-      iconoViaje = Icon(Icons.directions_walk, color: Colors.white);
+      iconoViaje = Icon(Icons.directions_walk, color: Colors.deepOrangeAccent);
     } else {
       modoViaje = TravelMode.driving;
-      iconoViaje = Icon(Icons.directions_car, color: Colors.white);
+      iconoViaje = Icon(Icons.directions_car, color: Colors.deepOrangeAccent);
     }
     await trazarRuta(origen, destino, mode).then((valor) {
       if (valor != "Sin_resultados") {
@@ -169,42 +169,52 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
                     fontSize: 20.0,
                   ),
                 ),
-                DropdownButton<String>(
-                  value: tipoViaje,
-                  icon: iconoViaje,
-                  iconSize: 35,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: "Poppins"),
-                  dropdownColor: Colors.white,
-                  underline: Text(''),
-                  selectedItemBuilder: (BuildContext context) {
-                    return options.map((String value) {
-                      return Container(
-                          padding: EdgeInsets.only(top: 10, right: 15),
-                          child: Text(
-                            tipoViaje,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                            ),
-                          ));
-                    }).toList();
-                  },
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      tipoViaje = newValue!;
-                      cambiarViaje(newValue);
-                    });
-                  },
-                  items: options.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: DropdownButton<String>(
+                    value: tipoViaje,
+                    icon: iconoViaje,
+                    iconSize: 35,
+                    style: TextStyle(
+                        color: Colors.deepOrangeAccent,
+                        fontSize: 18.0,
+                        fontFamily: "Poppins"),
+                    dropdownColor: Colors.white,
+                    underline: Text(''),
+                    selectedItemBuilder: (BuildContext context) {
+                      return options.map((String value) {
+                        return Container(
+                            padding: EdgeInsets.only(top: 10, right: 15),
+                            child: Text(
+                              tipoViaje,
+                              style: TextStyle(
+                                color: Colors.deepOrangeAccent,
+                                fontSize: 20.0,
+                              ),
+                            ));
+                      }).toList();
+                    },
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        tipoViaje = newValue!;
+                        cambiarViaje(newValue);
+                      });
+                    },
+                    items:
+                        options.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ],
             )),
@@ -230,7 +240,7 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
                 myLocationButtonEnabled: true,
                 zoomGesturesEnabled: true,
                 zoomControlsEnabled: true,
-                rotateGesturesEnabled: false,
+                rotateGesturesEnabled: true,
               ),
               Positioned(
                   right: 10,
