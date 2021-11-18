@@ -23,7 +23,7 @@ class WitMethods {
     //aquí va la lógica de respuesta
     var intents = response["intents"];
     var entities = response["entities"].values;
-    if (intents.length == 0 || entities.length == 0) {
+    if (intents.length == 0) {
       Intencion intencion = Traits();
       intencion.construct("Error", []);
       var random = new Random();
@@ -36,16 +36,23 @@ class WitMethods {
     } else {
       String intentName = intents[0]["name"];
       List<Map> parametros = [];
-      for (var entidad in entities) {
-        parametros.add({entidad[0]["name"]: entidad[0]["value"]});
-      }
-
-      await fabrica(intentName, parametros, context).then((value) {
-        enviarMensaje(value.respuesta, value);
-        if (value.mostrar) {
-          value.mostrarVista(context);
+      if (intentName == "Ayuda" || entities.length != 0) {
+        for (var entidad in entities) {
+          parametros.add({entidad[0]["name"]: entidad[0]["value"]});
         }
-      });
+
+        await fabrica(intentName, parametros, context).then((value) {
+          enviarMensaje(value.respuesta, value);
+          if (value.mostrar) {
+            value.mostrarVista(context);
+          }
+        });
+      } else {
+        Intencion intencion = Traits();
+        intencion.construct("Error", []);
+        var random = new Random();
+        enviarMensaje(error[random.nextInt(error.length)], intencion);
+      }
     }
     setCargando(false);
   }

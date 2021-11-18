@@ -16,7 +16,37 @@ class Traits extends Intencion {
       var random = new Random();
       respuesta = despedida[random.nextInt(despedida.length)];
     } else if (tipo == "Ayuda") {
-      respuesta = "Ayuda dada";
+      print("algo se envio");
+      if (parametros.length != 0) {
+        String ayuda = parametros[0]["Ayuda"].toLowerCase();
+        if (ayuda.contains("ruta") || ayuda.contains("destino")) {
+          respuesta =
+              "Puedes solicitar rutas de un lugar en específico a otro, o desde tu posición, por ejemplo: “Traza una ruta del centro de Guadalajara al Lago de Chapala” o “Muestra una ruta al Palacio de bellas Artes”";
+        } else if (ayuda.contains("cercano") ||
+            ayuda.contains("cercana") ||
+            ayuda.contains("rededor")) {
+          respuesta =
+              "Para buscar establecimientos cercanos puede escribir: “Cafeterías cercanas”, “Cines cercanos a mí”, “Restaurantes a mi alrededor”, etc.";
+        } else if (ayuda.contains("foto") || ayuda.contains("imagen")) {
+          respuesta =
+              "Para ver las fotos de un lugar puede escribir “Fotos del Museo de las momias Guanajuato”";
+        } else if (ayuda.contains("detalle")) {
+          respuesta =
+              "Para ver los detalles de un lugar puede escribir “Detalles del Museo de las momias Guanajuato” o solicitar un dato en específico, “Cual es el número del Museo de las momias Guanajuato”";
+        } else if (ayuda.contains("uber")) {
+          respuesta =
+              "Debe escribir una pregunta solicitando el viaje en Uber e indicando tu destino, por ejemplo: “Viaje en Uber al Museo de las momias Guanajuato”";
+        } else if (ayuda.contains("lugar") || ayuda.contains("buscar")) {
+          respuesta =
+              "Para buscar un lugar puedes escribir “¿Dónde está Six flags México?” o “Donde se encuentra el Palacio de Bellas Artes”";
+        } else {
+          respuesta =
+              "No entendí que tipo de ayuda desaeas, puedes ver la sección de ayuda si lo deseas";
+        }
+      } else {
+        respuesta =
+            "Hola, soy Dasha un asistente que te ayudará a buscar lugares, trazar rutas entre muchas otras opciones. Para más información puedes escribir “Ayuda para buscar lugares” o “Ayuda para trazar una ruta”, o puedes ver la sección de ayuda ";
+      }
     } else {}
     mostrar = false;
   }
