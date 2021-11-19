@@ -173,9 +173,16 @@ class RutaViewState extends State<RutaView> with TickerProviderStateMixin {
                   height: 15,
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  padding: EdgeInsets.only(left: 30, right: 30, bottom: 5),
                   decoration: BoxDecoration(
                       color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFBF360C),
+                          offset: Offset(0, 4),
+                          blurRadius: 4,
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(50)),
                   child: DropdownButton<String>(
                     value: tipoViaje,
