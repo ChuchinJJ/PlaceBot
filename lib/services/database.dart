@@ -15,21 +15,21 @@ class DatabaseMethods {
       "mensajes": [
         {
           "texto":
-              "Hola yo soy Dasha, una asistente que te ayudará a trazar rutas y buscar lugares, entre otras cosas",
+              "Hola yo soy Dasha, un asistente que te ayudará a trazar rutas, buscar algún lugar o establecimientos cercanos a ti, entre otras cosas",
           "fecha": DateTime.now(),
           "bot": true,
           "intencion": {"tipo": "Saludo", "parametros": []}
         },
         {
           "texto":
-              "Puedes pedirme que busque un lugar por ti, solo pideme que lugar quieres buscar",
+              "Puedes pedirme que busque un lugar por ti, intenta escribir “¿Dónde se encuentra Chichén Itzá?” o “Restaurantes cercanos”",
           "fecha": DateTime.now(),
           "bot": true,
           "intencion": {"tipo": "Saludo", "parametros": []}
         },
         {
           "texto":
-              "Si no sabes que hacer pideme ayuda, simplemente escribe: Dasha ayudame, y yo con gusto te atenderé",
+              "Si no sabes que hacer pideme ayuda, simplemente escribe “Dasha ayudame”, y yo con gusto te atenderé o puedes ver la sección de ayuda",
           "fecha": DateTime.now(),
           "bot": true,
           "intencion": {"tipo": "Saludo", "parametros": []}
