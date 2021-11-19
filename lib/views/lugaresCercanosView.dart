@@ -7,6 +7,8 @@ import 'package:placebot/models/Ruta.dart';
 import 'package:placebot/services/geolocator.dart';
 import 'package:placebot/services/googleMaps.dart';
 import 'package:placebot/services/uberMethods.dart';
+import 'package:placebot/widget/SnackBar.dart';
+import 'package:placebot/widget/loading.dart';
 
 class LugaresCercanosView extends StatefulWidget {
   final List<JsonLugar> datos;
@@ -206,6 +208,7 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                                                         50),
                                                     primary: Colors.white),
                                                 onPressed: () async {
+                                                  showLoading(context);
                                                   Ruta ruta = new Ruta();
                                                   List<Map> parametros = [
                                                     {
@@ -218,7 +221,13 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                                                   ruta.construct(
                                                       "Ruta", parametros);
                                                   await ruta.llamarAPI();
-                                                  ruta.mostrarVista(context);
+                                                  Navigator.of(context).pop();
+                                                  if (ruta.mostrar == true) {
+                                                    ruta.mostrarVista(context);
+                                                  } else {
+                                                    snackBarError(context,
+                                                        "Lo sentimos, no se pudo procesar su solicitud");
+                                                  }
                                                 })
                                           ]),
                                       SizedBox(
@@ -269,6 +278,7 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                                         ),
                                       TextButton(
                                           onPressed: () async {
+                                            showLoading(context);
                                             DetalleLugar detalle =
                                                 new DetalleLugar();
                                             List<Map> parametros = [
@@ -277,7 +287,13 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                                             detalle.construct(
                                                 "Detalle", parametros);
                                             await detalle.llamarAPI();
-                                            detalle.mostrarVista(context);
+                                            Navigator.of(context).pop();
+                                            if (detalle.mostrar == true) {
+                                              detalle.mostrarVista(context);
+                                            } else {
+                                              snackBarError(context,
+                                                  "Lo sentimos, no se pudo procesar su solicitud");
+                                            }
                                           },
                                           child: Text("Ver más detalles",
                                               style: TextStyle(

@@ -12,3 +12,12 @@ class Loading extends StatelessWidget {
     );
   }
 }
+
+void showLoading(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Loading();
+    },
+  );
+}

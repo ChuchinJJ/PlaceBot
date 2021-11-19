@@ -6,6 +6,8 @@ import 'package:placebot/models/JsonMaps.dart';
 import 'package:placebot/models/Ruta.dart';
 import 'package:placebot/services/googleMaps.dart';
 import 'package:placebot/services/uberMethods.dart';
+import 'package:placebot/widget/SnackBar.dart';
+import 'package:placebot/widget/loading.dart';
 
 class LugarView extends StatefulWidget {
   final JsonLugar datos;
@@ -189,6 +191,7 @@ class LugarViewState extends State<LugarView> {
                                                         50),
                                                     primary: Colors.white),
                                                 onPressed: () async {
+                                                  showLoading(context);
                                                   Ruta ruta = new Ruta();
                                                   List<Map> parametros = [
                                                     {
@@ -201,7 +204,13 @@ class LugarViewState extends State<LugarView> {
                                                   ruta.construct(
                                                       "Ruta", parametros);
                                                   await ruta.llamarAPI();
-                                                  ruta.mostrarVista(context);
+                                                  Navigator.of(context).pop();
+                                                  if (ruta.mostrar == true) {
+                                                    ruta.mostrarVista(context);
+                                                  } else {
+                                                    snackBarError(context,
+                                                        "Lo sentimos, no se pudo procesar su solicitud");
+                                                  }
                                                 })
                                           ]),
                                       SizedBox(
@@ -252,6 +261,7 @@ class LugarViewState extends State<LugarView> {
                                         ),
                                       TextButton(
                                           onPressed: () async {
+                                            showLoading(context);
                                             DetalleLugar detalle =
                                                 new DetalleLugar();
                                             List<Map> parametros = [
@@ -260,7 +270,13 @@ class LugarViewState extends State<LugarView> {
                                             detalle.construct(
                                                 "Detalle", parametros);
                                             await detalle.llamarAPI();
-                                            detalle.mostrarVista(context);
+                                            Navigator.of(context).pop();
+                                            if (detalle.mostrar == true) {
+                                              detalle.mostrarVista(context);
+                                            } else {
+                                              snackBarError(context,
+                                                  "Lo sentimos, no se pudo procesar su solicitud");
+                                            }
                                           },
                                           child: Text("Ver más detalles",
                                               style: TextStyle(
