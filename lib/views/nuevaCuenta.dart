@@ -143,7 +143,6 @@ class NuevaCuentaState extends State<NuevaCuenta> {
                     ),
                   ),
                 ]))),
-        SizedBox(height: MediaQuery.of(context).size.height / 16),
         Container(
           padding: EdgeInsets.all(40),
           child: RichText(

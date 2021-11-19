@@ -21,7 +21,7 @@ class Traits extends Intencion {
         String ayuda = parametros[0]["Ayuda"].toLowerCase();
         if (ayuda.contains("ruta") || ayuda.contains("destino")) {
           respuesta =
-              "Puedes solicitar rutas de un lugar en específico a otro, o desde tu posición, por ejemplo: “Traza una ruta del centro de Guadalajara al Lago de Chapala” o “Muestra una ruta al Palacio de bellas Artes”";
+              "Puedes solicitar rutas de un lugar en específico a otro, o desde tu posición, por ejemplo: “Traza una ruta del centro de Guadalajara al Malecón de Chapala” o “Muestra una ruta al Palacio de bellas Artes”";
         } else if (ayuda.contains("cercano") ||
             ayuda.contains("cercana") ||
             ayuda.contains("rededor")) {
