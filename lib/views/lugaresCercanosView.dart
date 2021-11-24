@@ -258,7 +258,7 @@ class LugaresCercanosViewState extends State<LugaresCercanosView> {
                                       if (lugar.abierto != null)
                                         ListTile(
                                           title: Text(
-                                            lugar.abierto
+                                            lugar.abierto.toString() == "true"
                                                 ? "Abierto"
                                                 : "Cerrado",
                                             style: TextStyle(

@@ -71,7 +71,7 @@ class ChatState extends State<Chats> {
           }
           setCargando(false);
         });
-      } catch (e) {}
+      } catch (e) {setCargando(false);}
     }
 
     if (cargando) return Loading();

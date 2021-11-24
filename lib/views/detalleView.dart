@@ -100,7 +100,9 @@ class DetalleViewState extends State<DetalleView> {
                       expandedCrossAxisAlignment: CrossAxisAlignment.start,
                       collapsedIconColor: Colors.deepOrange,
                       title: Text(
-                        datos.abierto ? "Abierto" : "Cerrado",
+                        datos.abierto.toString() == "true"
+                            ? "Abierto"
+                            : "Cerrado",
                         style: TextStyle(
                             fontFamily: "Poppins-Light",
                             color: Colors.black,

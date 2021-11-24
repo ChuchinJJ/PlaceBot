@@ -8,7 +8,7 @@ class JsonLugar {
   final double rating;
   final String status;
   final List<dynamic> types;
-  final bool abierto;
+  final bool? abierto;
   final int votos;
 
   JsonLugar(
@@ -34,7 +34,7 @@ class JsonLugar {
             json["formatted_address"] != null ? json["formatted_address"] : "",
         fotoUrl:
             json["photos"] != null ? json["photos"][0]["photo_reference"] : "",
-        rating: json["rating"] != null ? json["rating"].toDouble() : null,
+        rating: json["rating"] != null ? json["rating"].toDouble() : 0.0,
         status: json["business_status"] != null ? json["business_status"] : "",
         types: json["types"] != null ? json["types"] : [],
         abierto: json["opening_hours"] != null
@@ -42,7 +42,7 @@ class JsonLugar {
             : null,
         votos: json["user_ratings_total"] != null
             ? json["user_ratings_total"]
-            : null);
+            : 0);
   }
 }
 
@@ -95,7 +95,7 @@ class JsonDetalle {
   final String status;
   final List<dynamic> types;
   final List<dynamic> comentarios;
-  final bool abierto;
+  final bool? abierto;
   final List<dynamic> horarios;
   final String web;
   final int votos;
@@ -126,7 +126,7 @@ class JsonDetalle {
             ? json["formatted_phone_number"]
             : "",
         fotos: json["photos"] != null ? json["photos"] : [],
-        rating: json["rating"] != null ? json["rating"].toDouble() : null,
+        rating: json["rating"] != null ? json["rating"].toDouble() : 0.0,
         status: json["business_status"] != null ? json["business_status"] : "",
         types: json["types"] != null ? json["types"] : [],
         comentarios: json["reviews"] != null ? json["reviews"] : [],
@@ -139,6 +139,6 @@ class JsonDetalle {
         web: json["website"] != null ? json["website"] : "",
         votos: json["user_ratings_total"] != null
             ? json["user_ratings_total"]
-            : null);
+            : 0);
   }
 }

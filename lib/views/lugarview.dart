@@ -241,7 +241,7 @@ class LugarViewState extends State<LugarView> {
                                       if (datos.abierto != null)
                                         ListTile(
                                           title: Text(
-                                            datos.abierto
+                                            datos.abierto.toString() == "true"
                                                 ? "Abierto"
                                                 : "Cerrado",
                                             style: TextStyle(
